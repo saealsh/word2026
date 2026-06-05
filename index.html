@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مونديال 2026 · حيث يبدأ الشغف ولا ينتهي 🔥</title>
+<meta name="description" content="عِش جنون كأس العالم 2026 لحظة بلحظة: جدول مباريات ناري بعدّاد تنازلي حيّ، مجموعات، نجوم المنتخبات، خريطة الملاعب، وركن جماهير يغلي بالحماس.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- شريط التنقل -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="cup">🏆</span> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات وجماهير</a>
+    </div>
+  </div>
+</nav>
+
+<!-- البطل -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span> الحدث الأضخم في التاريخ · 48 منتخباً · 3 دول · حلم واحد</span>
+      <h1>عِش جنون <span class="gradient-text">كأس العالم 2026</span> لحظة بلحظة</h1>
+      <p class="lead">من صافرة الافتتاح حتى رفع الكأس الذهبية — كل مباراة، كل هدف، كل دقة في التوقيت بين يديك. عدّاد ناري لكل لقاء، منتخبك المفضّل تحت ناظريك، و16 ملعباً تشتعل عبر أمريكا وكندا والمكسيك. استعدّ، فالملحمة على الأبواب!</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="matches.html">🔥 انطلق إلى المباريات</a>
+        <a class="btn btn-ghost" href="groups.html">استكشف المجموعات</a>
+      </div>
+    </div>
+
+    <!-- بطاقة العدّاد -->
+    <div class="countdown-card">
+      <div class="cd-head">
+        <span class="lbl" id="cdLabel">الصافرة القادمة</span>
+        <span class="pill" style="margin:0"><span class="dot"></span> العدّ تنازلي</span>
+      </div>
+      <div class="cd-match" id="cdMatch"></div>
+      <div class="cd-timer" id="heroCountdown"></div>
+      <p class="muted" style="text-align:center;margin-top:14px;font-size:.84rem">اختر منتخبك المفضّل وسينبض هذا العدّاد على إيقاع مبارياته 💛</p>
+    </div>
+  </div>
+</header>
+
+<!-- شريط أخبار -->
+<div class="ticker">
+  <div class="wrap"><div class="ticker-track" id="ticker"></div></div>
+</div>
+
+<!-- إحصائيات سريعة -->
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div class="card stat reveal"><b>48</b><span>منتخباً يطارد الحلم</span></div>
+      <div class="card stat reveal"><b>12</b><span>مجموعة من النار</span></div>
+      <div class="card stat reveal"><b>72</b><span>معركة في دور المجموعات</span></div>
+      <div class="card stat reveal"><b>16</b><span>مدينة تشتعل بالجماهير</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- اختر منتخبك -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>ارفع راية منتخبك</h2><p>اختر فريق قلبك، وسنُفصّل لك العدّاد والتذكيرات وكل مبارياته على مقاسك</p></div>
+    </div>
+    <div class="chip-row" id="favPicker"></div>
+  </div>
+</section>
+
+<!-- أقرب المباريات -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>على الأبواب مباشرة</h2><p>أولى شرارات البطولة بعدّاد تنازلي يحبس الأنفاس</p></div>
+      <a class="btn btn-ghost" href="matches.html">كل المباريات ←</a>
+    </div>
+    <div class="grid grid-3" id="upcoming"></div>
+  </div>
+</section>
+
+<!-- لمحة المجموعات -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><div><h2>ساحات المعركة الـ12</h2><p>اضغط أي مجموعة لتغوص في الترتيب والمواجهات الساخنة</p></div></div>
+    <div class="grid grid-4" id="groupsMini"></div>
+  </div>
+</section>
+
+<!-- التذييل -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>🏆 مونديال 2026</h4>
+        <p class="muted">نبض الجماهير ومنصّتها لمتابعة كأس العالم 2026 لحظة بلحظة. كل التوقيتات بتوقيت مكة المكرمة، والبيانات مطابقة للقرعة الرسمية لفيفا. هنا يجتمع الشغف بالدقة.</p>
+      </div>
+      <div><h4>تصفّح</h4><a href="matches.html">المباريات</a><a href="groups.html">المجموعات</a><a href="map.html">الملاعب</a><a href="live.html">تحليلات وجماهير</a></div>
+      <div><h4>أرض الحلم</h4><a>🇺🇸 الولايات المتحدة</a><a>🇨🇦 كندا</a><a>🇲🇽 المكسيك</a></div>
+    </div>
+    <div class="copy">© 2026 منصة مونديال الجماهيرية · صُنعت بشغفٍ يليق بكأس العالم ⚽🔥</div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // منتقي المنتخب المفضّل
+  const picker = document.getElementById("favPicker");
+  Object.keys(WC.teams).forEach(function (k) {
+    const c = document.createElement("button");
+    c.className = "chip" + (WCFav.has(k) ? " active" : "");
+    c.innerHTML = '<img src="' + WC.flagUrl(k, "w20") + '" style="width:18px;height:13px;border-radius:2px;vertical-align:-2px;margin-left:5px"> ' + WC.team(k).name;
+    c.addEventListener("click", function () {
+      WCFav.toggle(k);
+      document.querySelectorAll("#favPicker .chip").forEach(function (x, i) {
+        x.classList.toggle("active", WCFav.has(Object.keys(WC.teams)[i]));
+      });
+    });
+    picker.appendChild(c);
+  });
+
+  // أقرب 6 مباريات
+  const up = document.getElementById("upcoming");
+  const next = WC.matches.filter(m => new Date(m.kickoff) > Date.now())
+    .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff)).slice(0, 6);
+  (next.length ? next : WC.matches.slice(0, 6)).forEach(m => up.appendChild(WCMatchCard(m)));
+
+  // لمحة المجموعات
+  const gm = document.getElementById("groupsMini");
+  WC.groups.forEach(function (g) {
+    const card = document.createElement("a");
+    card.className = "card reveal"; card.href = "groups.html#g" + g;
+    let html = '<h3 style="margin-bottom:10px">المجموعة <span class="gold">' + g + '</span></h3>';
+    WC.teamsInGroup(g).forEach(function (k) {
+      html += '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-weight:600;font-size:.92rem"><img src="' + WC.flagUrl(k, "w20") + '" style="width:24px;height:17px;border-radius:3px"> ' + WC.team(k).name + '</div>';
+    });
+    card.innerHTML = html;
+    gm.appendChild(card);
+  });
+
+  // شريط الأخبار
+  const tk = document.getElementById("ticker");
+  const items = WC.matches.slice(0, 14).map(m =>
+    '<span>' + WC.team(m.home).name + ' <b>vs</b> ' + WC.team(m.away).name + ' · ' + m.time + '</span>');
+  tk.innerHTML = items.join("") + items.join("");
+
+  WCRefresh();
+});
+</script>
+</body>
+</html>

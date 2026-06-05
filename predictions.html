@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>توقّعاتي · مونديال 2026 🔮</title>
+<meta name="description" content="توقّع نتائج مباريات كأس العالم 2026 واختر بطلك المنتظر، واحفظ بطاقة توقّعاتك وشاركها مع أصدقائك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://flagcdn.com" crossorigin>
+<meta name="theme-color" content="#000000">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .champ-pick { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .champ-pick select { flex: 1; min-width: 200px; font-family: var(--font); background: var(--card); border: 1px solid var(--border-gold); color: var(--text); padding: 12px 15px; border-radius: 12px; font-weight: 800; font-size: 1.05rem; }
+  .champ-badge { display: flex; align-items: center; gap: 10px; font-weight: 900; }
+  .champ-badge img { width: 40px; height: 30px; object-fit: cover; border-radius: 5px; box-shadow: var(--shadow); }
+  .pred-progress { background: rgba(255,255,255,.08); border-radius: 999px; height: 14px; overflow: hidden; margin: 8px 0; }
+  .pred-progress > span { display: block; height: 100%; background: var(--grad-fire); transition: width .5s; }
+  .pred-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; padding: 9px 6px; border-bottom: 1px solid var(--border); }
+  .pred-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; }
+  .pred-team.away { flex-direction: row-reverse; }
+  .pred-team img { width: 30px; height: 22px; object-fit: cover; border-radius: 4px; }
+  .pred-choices { display: flex; gap: 4px; }
+  .pred-choices button { font-family: var(--font); width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--border); background: var(--card); color: var(--text-dim); font-weight: 900; cursor: pointer; transition: .15s; }
+  .pred-choices button:hover { color: var(--text); border-color: var(--border-gold); }
+  .pred-choices button.sel { background: var(--grad-fire); color: #000; border-color: transparent; }
+  .pred-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+  /* شارة تقدّم لكل مجموعة */
+  .group-card h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .gp-badge { font-size: .72rem; font-weight: 800; color: var(--text-faint); background: var(--card-strong); border: 1px solid var(--border); padding: 3px 9px; border-radius: 999px; }
+  .gp-badge.done { color: #000; background: var(--grad-fire); border-color: transparent; }
+
+  /* احتفال الاكتمال (قُصاصات) */
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+  .confetti i { position: absolute; top: -12px; width: 9px; height: 14px; opacity: .9; animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: 1; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="cup">🏆</span> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="knockout.html">الإقصائيات</a>
+      <a href="predictions.html">توقّعاتي</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات وجماهير</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>🔮 توقّعاتي</h2><p>اختر البطل وتنبّأ بكل مباراة · توقّعاتك محفوظة على جهازك ويمكنك مشاركتها</p></div>
+    </div>
+
+    <!-- البطل + التقدّم -->
+    <div class="card reveal" style="margin-bottom:22px">
+      <h3 style="margin-bottom:12px">🏆 توقّعي للبطل</h3>
+      <div class="champ-pick">
+        <select id="champSel"><option value="">— اختر المنتخب البطل —</option></select>
+        <div class="champ-badge" id="champBadge"></div>
+      </div>
+      <div style="margin-top:16px">
+        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem">
+          <span>تقدّم توقّعاتك</span><span id="progTxt" class="gold">0 / 72</span>
+        </div>
+        <div class="pred-progress"><span id="progBar" style="width:0%"></span></div>
+      </div>
+      <div class="pred-actions">
+        <button class="btn btn-gold" id="btnCard">🖼️ نزّل بطاقة توقّعاتي</button>
+        <button class="btn btn-ghost" id="btnShare">📤 مشاركة</button>
+        <button class="btn btn-ghost" id="btnAuto">⚡ املأ حسب التصنيف</button>
+        <button class="btn btn-ghost" id="btnRandom">🎲 عشوائي</button>
+        <button class="btn btn-ghost" id="btnReset">↺ تصفير</button>
+      </div>
+    </div>
+
+    <!-- التوقّعات حسب المجموعة -->
+    <div id="predRoot"></div>
+  </div>
+</section>
+
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · العب، توقّع، تفاخر 🔮</div></div></footer>
+
+
+<!-- ===== وحدات المعمارية النظيفة (ترتيب التحميل = ترتيب الاعتماد) ===== -->
+<!-- core: النطاق -->
+<script src="core/data.js"></script>
+<script src="core/domain.js"></script>
+<script src="core/profiles.js"></script>
+<!-- infra: البنية التحتية -->
+<script src="infra/storage.js"></script>
+<script src="infra/time.js"></script>
+<script src="infra/exporters.js"></script>
+<script src="infra/live.js"></script>
+<!-- app: الحالة -->
+<script src="app/clock.js"></script>
+<script src="app/collections.js"></script>
+<script src="app/live-poll.js"></script>
+<!-- ui: العرض -->
+<script src="ui/toast.js"></script>
+<script src="ui/reveal.js"></script>
+<script src="ui/countdown.js"></script>
+<script src="ui/match-card.js"></script>
+<script src="ui/chrome.js"></script>
+<!-- التركيب + التوافق -->
+<script src="boot.js"></script>
+<script src="compat.js"></script>
+<!-- page controller -->
+<script src="predictions.js"></script>
+</body>
+</html>

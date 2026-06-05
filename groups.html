@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساحات المعركة الـ12 · مجموعات مونديال 2026</title>
+<meta name="description" content="12 مجموعة، 48 حلماً، وصراع على كل نقطة — تابع ترتيب مجموعات كأس العالم 2026 بأعلام منتخباتها لحظة بلحظة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://flagcdn.com" crossorigin>
+<meta name="theme-color" content="#000000">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="cup">🏆</span> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="knockout.html">الإقصائيات</a>
+      <a href="predictions.html">توقّعاتي</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات وجماهير</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>مجموعات النار</h2><p>12 مجموعة × 4 منتخبات · لا مكان للضعفاء — المتصدّر والوصيف وأفضل أصحاب المركز الثالث فقط يعبرون</p></div>
+    </div>
+    <p class="muted" style="margin-bottom:20px;font-size:.9rem">🟢 الشريط الأخضر = بطاقة عبور إلى دور الإقصاء. تشتعل النقاط تلقائياً لحظة ربط مصدر النتائج الحيّ.</p>
+    <div class="grid grid-3" id="groupsGrid"></div>
+  </div>
+</section>
+
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · من المجموعات يولد الأبطال 🏆</div></div></footer>
+
+
+<!-- ===== وحدات المعمارية النظيفة (ترتيب التحميل = ترتيب الاعتماد) ===== -->
+<!-- core: النطاق -->
+<script src="core/data.js"></script>
+<script src="core/domain.js"></script>
+<script src="core/profiles.js"></script>
+<!-- infra: البنية التحتية -->
+<script src="infra/storage.js"></script>
+<script src="infra/time.js"></script>
+<script src="infra/exporters.js"></script>
+<script src="infra/live.js"></script>
+<!-- app: الحالة -->
+<script src="app/clock.js"></script>
+<script src="app/collections.js"></script>
+<script src="app/live-poll.js"></script>
+<!-- ui: العرض -->
+<script src="ui/toast.js"></script>
+<script src="ui/reveal.js"></script>
+<script src="ui/countdown.js"></script>
+<script src="ui/match-card.js"></script>
+<script src="ui/chrome.js"></script>
+<!-- التركيب + التوافق -->
+<script src="boot.js"></script>
+<script src="compat.js"></script>
+<!-- page controller -->
+<script src="groups.js"></script>
+</body>
+</html>

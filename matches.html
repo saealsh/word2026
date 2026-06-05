@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>72 معركة بانتظارك · جدول مونديال 2026 🔥</title>
+<meta name="description" content="كل لقطة من دور المجموعات في مكان واحد — 72 مباراة بتوقيت مكة، عدّاد تنازلي يحبس الأنفاس، وفلترة لحظية حسب منتخبك ومجموعتك ويومك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="cup">🏆</span> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات وجماهير</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>خارطة الإثارة الكاملة</h2><p>72 مباراة تفصل بينك وبين المجد · كل التوقيتات بتوقيت مكة المكرمة</p></div>
+    </div>
+
+    <!-- الفلاتر -->
+    <div class="filters">
+      <input type="search" id="fSearch" placeholder="🔎 ابحث عن فريق قلبك…">
+      <select id="fGroup"><option value="">كل المجموعات</option></select>
+      <select id="fRound">
+        <option value="">كل الجولات</option>
+        <option value="1">الجولة الأولى</option>
+        <option value="2">الجولة الثانية</option>
+        <option value="3">الجولة الثالثة</option>
+      </select>
+      <select id="fDate"><option value="">كل التواريخ</option></select>
+      <label class="chip" id="favOnly" style="user-select:none">⭐ منتخبي فقط</label>
+      <label class="chip" id="intOnly" style="user-select:none">🔔 اهتماماتي فقط</label>
+      <span class="muted" id="count" style="margin-inline-start:auto;font-size:.9rem"></span>
+    </div>
+
+    <div id="matchList"></div>
+    <div class="empty" id="empty" style="display:none">⚽ لا مباريات تطابق بحثك… جرّب توسيع الفلاتر ولا تفوّت الإثارة!</div>
+  </div>
+</section>
+
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · عِش كل ثانية بتوقيت مكة المكرمة 🔥</div></div></footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const list = document.getElementById("matchList");
+  const fSearch = document.getElementById("fSearch");
+  const fGroup = document.getElementById("fGroup");
+  const fRound = document.getElementById("fRound");
+  const fDate = document.getElementById("fDate");
+  const favOnly = document.getElementById("favOnly");
+  const intOnly = document.getElementById("intOnly");
+  const countEl = document.getElementById("count");
+  const emptyEl = document.getElementById("empty");
+  let favMode = false, intMode = false;
+
+  // قراءة منتخب من رابط (?team=) لتفعيل الفلتر
+  const urlTeam = new URLSearchParams(location.search).get("team");
+
+  WC.groups.forEach(g => fGroup.add(new Option("المجموعة " + g, g)));
+  [...new Set(WC.matches.map(m => m.date))].forEach(d =>
+    fDate.add(new Option(new Date(d + "T12:00:00").toLocaleDateString("ar", { weekday: "long", day: "numeric", month: "long" }), d)));
+
+  favOnly.addEventListener("click", () => { favMode = !favMode; favOnly.classList.toggle("active", favMode); render(); });
+  intOnly.addEventListener("click", () => { intMode = !intMode; intOnly.classList.toggle("active", intMode); render(); });
+
+  function render() {
+    const q = fSearch.value.trim();
+    const g = fGroup.value, r = fRound.value, d = fDate.value;
+    const favs = WCFav.list();
+    const ints = WCInterest.list();
+    let rows = WC.matches.filter(m => {
+      if (g && m.group !== g) return false;
+      if (r && String(m.round) !== r) return false;
+      if (d && m.date !== d) return false;
+      if (favMode && !(favs.includes(m.home) || favs.includes(m.away))) return false;
+      if (intMode && !ints.includes(m.id)) return false;
+      if (urlTeam && m.home !== urlTeam && m.away !== urlTeam) return false;
+      if (q) {
+        const names = WC.team(m.home).name + " " + WC.team(m.away).name;
+        if (!names.includes(q)) return false;
+      }
+      return true;
+    });
+
+    // تجميع حسب التاريخ
+    list.innerHTML = "";
+    const byDate = {};
+    rows.forEach(m => { (byDate[m.date] = byDate[m.date] || []).push(m); });
+    Object.keys(byDate).sort().forEach(date => {
+      const h = document.createElement("h3");
+      h.style.cssText = "margin:26px 0 14px;font-size:1.1rem;color:var(--gold)";
+      h.textContent = "📅 " + new Date(date + "T12:00:00").toLocaleDateString("ar", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      list.appendChild(h);
+      const grid = document.createElement("div");
+      grid.className = "grid grid-2";
+      byDate[date].forEach(m => grid.appendChild(WCMatchCard(m)));
+      list.appendChild(grid);
+    });
+
+    countEl.textContent = rows.length + " مباراة";
+    emptyEl.style.display = rows.length ? "none" : "block";
+    WCRefresh();
+  }
+
+  [fSearch, fGroup, fRound, fDate].forEach(el => el.addEventListener("input", render));
+  document.addEventListener("favchange", render);
+  document.addEventListener("interestchange", render);
+  render();
+});
+</script>
+</body>
+</html>

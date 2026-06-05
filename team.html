@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منتخبك في قلب الحدث · مونديال 2026</title>
+<meta name="description" content="كل ما يخص فريق قلبك في كأس العالم 2026: مجموعته، تصنيفه، مبارياته، والعدّاد التنازلي لصافرته القادمة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://flagcdn.com" crossorigin>
+<meta name="theme-color" content="#000000">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><span class="cup">🏆</span> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="knockout.html">الإقصائيات</a>
+      <a href="predictions.html">توقّعاتي</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات وجماهير</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap" id="teamRoot"></div>
+</section>
+
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية</div></div></footer>
+
+
+<!-- ===== وحدات المعمارية النظيفة (ترتيب التحميل = ترتيب الاعتماد) ===== -->
+<!-- core: النطاق -->
+<script src="src/core/data.js"></script>
+<script src="src/core/domain.js"></script>
+<script src="src/core/profiles.js"></script>
+<!-- infra: البنية التحتية -->
+<script src="src/infra/storage.js"></script>
+<script src="src/infra/time.js"></script>
+<script src="src/infra/exporters.js"></script>
+<script src="src/infra/live.js"></script>
+<!-- app: الحالة -->
+<script src="src/app/clock.js"></script>
+<script src="src/app/collections.js"></script>
+<script src="src/app/live-poll.js"></script>
+<!-- ui: العرض -->
+<script src="src/ui/toast.js"></script>
+<script src="src/ui/reveal.js"></script>
+<script src="src/ui/countdown.js"></script>
+<script src="src/ui/match-card.js"></script>
+<script src="src/ui/chrome.js"></script>
+<!-- التركيب + التوافق -->
+<script src="src/boot.js"></script>
+<script src="src/compat.js"></script>
+<!-- page controller -->
+<script src="src/pages/team.js"></script>
+</body>
+</html>

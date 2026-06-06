@@ -11,7 +11,6 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     WC.chrome.welcome();
-    WC.chrome.heroOrbs();
     WC.chrome.initNav();
     WC.chrome.tickHero();
     WC.clock.add(WC.chrome.renderHeroTimer); // أرقام عدّاد البطل

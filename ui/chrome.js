@@ -18,6 +18,28 @@
       if (href === page || (page === "" && href === "index.html")) a.classList.add("active");
     });
     const navInner = $(".nav-inner");
+
+    // زر تبديل الثيم (ليل/نهار) — الافتراضي ليلي
+    if (navInner && !$(".theme-toggle")) {
+      const btn = document.createElement("button");
+      btn.className = "theme-toggle";
+      btn.setAttribute("aria-label", "تبديل الثيم بين الليل والنهار");
+      const isLight = () => document.documentElement.getAttribute("data-theme") === "light";
+      const sync = () => { btn.textContent = isLight() ? "🌙" : "☀️"; btn.title = isLight() ? "التبديل للوضع الليلي" : "التبديل للوضع النهاري"; };
+      sync();
+      btn.addEventListener("click", function () {
+        const goLight = !isLight();
+        if (goLight) document.documentElement.setAttribute("data-theme", "light");
+        else document.documentElement.removeAttribute("data-theme");
+        try { localStorage.setItem("wc26_theme", goLight ? "light" : "dark"); } catch (e) {}
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", goLight ? "#f3f3f1" : "#000000");
+        sync();
+        WC.toast(goLight ? "🌙" : "🌞", goLight ? "تم تفعيل الوضع النهاري" : "تم تفعيل الوضع الليلي");
+      });
+      navInner.appendChild(btn);
+    }
+
     if (navInner && !$(".tz-select")) {
       const firstVisit = !(function () { try { return localStorage.getItem("wc26_tz"); } catch (e) { return null; } })();
       const sel = document.createElement("select");

@@ -51,3 +51,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   WCRefresh();
 });
+
+/* ===== العدّاد النيون لانطلاق المونديال (أيام · ساعة:دقيقة:ثانية) ===== */
+document.addEventListener("DOMContentLoaded", function () {
+  var big = document.getElementById("wccNum");
+  if (!big || !window.WC) return;
+  var ref = document.getElementById("wccNumR");
+  var sub = document.getElementById("wccSub");
+  var label = document.getElementById("wccLabel");
+  var band = document.querySelector(".wcc-band");
+  var target = Date.parse(WC.TOURNAMENT_START);
+  var lastDays = null;
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function set(v) { big.textContent = v; if (ref) ref.textContent = v; }
+  WCClock.add(function () {
+    var d = target - Date.now();
+    if (d <= 0) {
+      if (lastDays !== "go") {
+        set("🔥");
+        if (label) label.textContent = "انطلق كأس العالم 2026 — عِش كل لحظة!";
+        if (band) band.classList.add("started");
+        lastDays = "go";
+      }
+      if (sub) sub.textContent = "GOOOAL";
+      return;
+    }
+    var days = Math.floor(d / 864e5);
+    var h = Math.floor((d % 864e5) / 36e5), m = Math.floor((d % 36e5) / 6e4), s = Math.floor((d % 6e4) / 1e3);
+    if (days !== lastDays) {
+      set(days);
+      big.classList.remove("pop"); void big.offsetWidth; big.classList.add("pop"); // إعادة تشغيل حركة الظهور
+      lastDays = days;
+      if (label) label.textContent = (days === 1 ? "يوم واحد على انطلاق كأس العالم 2026" : "يومًا على انطلاق كأس العالم 2026");
+    }
+    if (sub) sub.textContent = pad(h) + " : " + pad(m) + " : " + pad(s);
+  });
+});

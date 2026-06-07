@@ -1,10 +1,10 @@
 {
   "updated": "2026-06-07T18:30:00.000Z",
   "matches": [
-    { "id": 900001, "lg": "مباراة ودية دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "Friendly",
-      "hT": "السعودية", "hLogo": null, "hG": 1,
-      "aT": "المغرب", "aLogo": null, "aG": 0,
-      "short": "2H", "min": 63 },
+    { "id": 900001, "lg": "مباراة دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "Friendly",
+      "hT": "السعودية", "hLogo": null, "hG": 3,
+      "aT": "إسبانيا", "aLogo": null, "aG": 1,
+      "short": "2H", "min": 89 },
     { "id": 900002, "lg": "مباراة ودية دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "Friendly",
       "hT": "مصر", "hLogo": null, "hG": 2,
       "aT": "تونس", "aLogo": null, "aG": 2,

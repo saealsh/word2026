@@ -1,0 +1,37 @@
+# محدّث النتائج الحيّة — يكتب live.json تلقائياً من مزوّد (API-Football مثال).
+# التفعيل: انقل هذا الملف إلى المسار: .github/workflows/live-updater.yml
+#  ثم في الريبو: Settings ← Secrets ← Actions ← أضِف سرّاً باسم API_KEY (مفتاح API-Football).
+#  واملأ idmap.json: { "<معرّف_مباراة_المزوّد>": "mN", ... } (يُملأ مرة عند توفّر الجدول).
+name: live-updater
+on:
+  schedule: [{ cron: "*/15 * * * *" }]   # كل 15 دقيقة (يبقى ضمن 100 طلب/يوم المجانية)
+  workflow_dispatch: {}
+permissions: { contents: write }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build live.json
+        env: { API_KEY: "${{ secrets.API_KEY }}" }
+        run: |
+          node - <<'JS'
+          const fs=require("fs"), https=require("https");
+          if(!process.env.API_KEY){ console.log("no key — skip"); process.exit(0); }
+          const idmap = fs.existsSync("idmap.json") ? JSON.parse(fs.readFileSync("idmap.json","utf8")) : {};
+          const opt={ host:"v3.football.api-sports.io", path:"/fixtures?live=all&league=1&season=2026", headers:{ "x-apisports-key":process.env.API_KEY } };
+          https.get(opt, r=>{ let b=""; r.on("data",d=>b+=d); r.on("end",()=>{
+            let out=[]; try{
+              const data=JSON.parse(b);
+              out=(data.response||[]).map(f=>{ const sh=f.fixture.status.short, id=idmap[f.fixture.id]; if(!id) return null;
+                return { id, status: sh==="FT"?"finished":(["1H","2H","HT","ET","P","BT"].includes(sh)?"live":"scheduled"), minute:f.fixture.status.elapsed, h:f.goals.home, a:f.goals.away }; }).filter(Boolean);
+            }catch(e){}
+            fs.writeFileSync("live.json", JSON.stringify({ updated:new Date().toISOString(), matches:out }));
+            console.log("wrote", out.length, "live matches");
+          }); }).on("error",e=>{ console.log("err",e.message); process.exit(0); });
+          JS
+      - name: Commit
+        run: |
+          git config user.name "live-bot"; git config user.email "bot@users.noreply.github.com"
+          git add live.json && git commit -m "live update" || echo "no change"
+          git push || true

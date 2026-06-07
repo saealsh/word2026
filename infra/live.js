@@ -79,6 +79,19 @@
      لا تضع مفتاح API في كود المتصفّح. شغّل وسيطاً بسيطاً (Cloudflare Worker
      مجاني / Serverless) يضيف المفتاح ويُعيد JSON المزوّد كما هو. */
   WC.live.sources = {
+    // مصدر محلي مجاني: ملف live.json على نفس الموقع (بلا مفتاح ولا CORS)
+    // الشكل: { "matches": [ { "id":"m1", "status":"live", "minute":23, "h":1, "a":0 } ] }
+    localFeed(url) {
+      return {
+        async fetch() {
+          const res = await fetch((url || "live.json") + "?t=" + Date.now(), { cache: "no-store" });
+          const data = await res.json();
+          return (data.matches || []).map(u => ({
+            id: u.id, status: u.status, minute: u.minute, scoreH: u.h, scoreA: u.a
+          }));
+        }
+      };
+    },
     // API-Football (عبر وسيطك): GET {proxy}/live ⇒ استجابة API-Football القياسية
     apiFootball(proxyBase) {
       return {

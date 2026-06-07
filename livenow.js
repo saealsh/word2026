@@ -26,6 +26,14 @@
     }
   }
 
+  function liveLine(short, min) {
+    if (short === "HT") return "الاستراحة";
+    if (short === "P")  return "ركلات الترجيح";
+    if (short === "BT") return "استراحة الإضافي";
+    if (short === "ET") return (min != null ? min + "′ " : "") + "إضافي";
+    return min != null ? min + "′" : "مباشر";
+  }
+
   function progress(short, min) {
     if (short === "HT") return 50;
     if (short === "P" || short === "BT") return 100;
@@ -62,17 +70,15 @@
     const asc = scorers.filter(s => s.side === "a");
 
     let html = '<div class="ln-card">';
-    // حالة الشوط
-    html += '<div class="ln-status' + (ht ? " ht" : "") + '">' + (ht ? "" : '<span class="d"></span>') + esc(statusLabel(m.short, m.min)) + "</div>";
     // رأس: بطولة + جولة
     html += '<div class="ln-head">' + (m.lgLogo ? '<img src="' + esc(m.lgLogo) + '" alt="">' : "🏆") +
       '<span class="lg">' + esc(m.lg || "") + "</span>" +
       (m.round ? '<span class="rnd">' + esc(m.round) + "</span>" : "") + "</div>";
-    // اللوحة: فريق — نتيجة — فريق
+    // اللوحة: فريق — نتيجة + حالة الشوط — فريق
     html += '<div class="ln-board">' +
       side(m.hT, m.hLogo, hG > aG) +
       '<div class="ln-mid"><div class="sc">' + (hG > aG ? "<b>" + hG + "</b>" : hG) + " - " + (aG > hG ? "<b>" + aG + "</b>" : aG) + "</div>" +
-        '<span class="min">' + (ht ? "استراحة" : (m.min != null ? m.min + "′" : "مباشر")) + "</span></div>" +
+        '<div class="ln-state' + (ht ? " ht" : "") + '">' + (ht ? "" : '<span class="d"></span>') + esc(liveLine(m.short, m.min)) + "</div></div>" +
       side(m.aT, m.aLogo, aG > hG) +
     "</div>";
     // شريط التقدّم

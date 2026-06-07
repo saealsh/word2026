@@ -7,7 +7,7 @@
    ========================================================================= */
 (function () {
   "use strict";
-  var GA_ID = ""; // ← مثال: "G-ABCD1234XY"
+  var GA_ID = "G-8Q9YWZPKMC"; // ← مثال: "G-ABCD1234XY"
   if (!GA_ID) return;
 
   var s = document.createElement("script");

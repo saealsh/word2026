@@ -1,10 +1,12 @@
-# محدّث النتائج الحيّة — يكتب live.json تلقائياً من مزوّد (API-Football مثال).
+# محدّث النتائج الحيّة (مونديال + «يلعب الآن») — طلب API واحد لكل تشغيل.
 # التفعيل: انقل هذا الملف إلى المسار: .github/workflows/live-updater.yml
-#  ثم في الريبو: Settings ← Secrets ← Actions ← أضِف سرّاً باسم API_KEY (مفتاح API-Football).
-#  واملأ idmap.json: { "<معرّف_مباراة_المزوّد>": "mN", ... } (يُملأ مرة عند توفّر الجدول).
+#  ثم في الريبو: Settings ← Secrets and variables ← Actions ← أضِف سرّاً باسم API_KEY (مفتاح API-Football).
+#  - live.json        : مباريات المونديال (تُربط عبر idmap.json عند صدور الجدول).
+#  - data/livenow.json: كل المباريات الجارية حالياً حول العالم.
+# الميزانية: تشغيل كل 20 دقيقة = ~72 طلب/يوم (ضمن 100 المجانية، مع هامش لمحدّث الدوريات).
 name: live-updater
 on:
-  schedule: [{ cron: "*/15 * * * *" }]   # كل 15 دقيقة (يبقى ضمن 100 طلب/يوم المجانية)
+  schedule: [{ cron: "*/20 * * * *" }]
   workflow_dispatch: {}
 permissions: { contents: write }
 jobs:
@@ -12,26 +14,57 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build live.json
+      - name: Build live feeds
         env: { API_KEY: "${{ secrets.API_KEY }}" }
         run: |
           node - <<'JS'
           const fs=require("fs"), https=require("https");
           if(!process.env.API_KEY){ console.log("no key — skip"); process.exit(0); }
           const idmap = fs.existsSync("idmap.json") ? JSON.parse(fs.readFileSync("idmap.json","utf8")) : {};
-          const opt={ host:"v3.football.api-sports.io", path:"/fixtures?live=all&league=1&season=2026", headers:{ "x-apisports-key":process.env.API_KEY } };
-          https.get(opt, r=>{ let b=""; r.on("data",d=>b+=d); r.on("end",()=>{
-            let out=[]; try{
-              const data=JSON.parse(b);
-              out=(data.response||[]).map(f=>{ const sh=f.fixture.status.short, id=idmap[f.fixture.id]; if(!id) return null;
-                return { id, status: sh==="FT"?"finished":(["1H","2H","HT","ET","P","BT"].includes(sh)?"live":"scheduled"), minute:f.fixture.status.elapsed, h:f.goals.home, a:f.goals.away }; }).filter(Boolean);
-            }catch(e){}
-            fs.writeFileSync("live.json", JSON.stringify({ updated:new Date().toISOString(), matches:out }));
-            console.log("wrote", out.length, "live matches");
-          }); }).on("error",e=>{ console.log("err",e.message); process.exit(0); });
+          function get(path){ return new Promise((res)=>{ const opt={host:"v3.football.api-sports.io",path,headers:{"x-apisports-key":process.env.API_KEY}};
+            https.get(opt,r=>{let b="";r.on("data",d=>b+=d);r.on("end",()=>{ try{res(JSON.parse(b));}catch(e){res({response:[]});} });}).on("error",()=>res({response:[]})); }); }
+          (async()=>{
+            const data = await get("/fixtures?live=all");
+            const fixtures = data.response || [];
+            const LIVE = ["1H","2H","HT","ET","P","BT","LIVE"];
+            // 1) مباريات المونديال (مرتبطة بـ idmap)
+            const wc = fixtures.map(f=>{ const sh=f.fixture.status.short, id=idmap[f.fixture.id]; if(!id) return null;
+              return { id, status: sh==="FT"?"finished":(LIVE.includes(sh)?"live":"scheduled"), minute:f.fixture.status.elapsed, h:f.goals.home, a:f.goals.away }; }).filter(Boolean);
+            fs.writeFileSync("live.json", JSON.stringify({ updated:new Date().toISOString(), matches:wc }));
+            // 2) كل المباريات الجارية (يلعب الآن) — بتفاصيل: ملعب + حالة + نتيجة
+            // ملاحظة مهمة (مدقَّقة من التوثيق): live=all لا يُرجِع أحداث الأهداف.
+            // أسماء المسجّلين تحتاج طلباً منفصلاً /fixtures/events لكل مباراة، وهذا يستهلك
+            // الكوتا بسرعة على الباقة المجانية (100/يوم). لذلك يبقى مُعطّلاً افتراضياً.
+            // بعد الترقية لـPro، غيّر ENABLE_SCORERS إلى true لتظهر أسماء المسجّلين.
+            const ENABLE_SCORERS = false;
+            const now = [];
+            for (const f of fixtures) {
+              const hId=f.teams.home.id;
+              let scorers=[];
+              if (ENABLE_SCORERS) {
+                const ev = await get("/fixtures/events?fixture="+f.fixture.id);
+                scorers=(ev.response||[]).filter(e=>e && e.type==="Goal").map(e=>({
+                  side: (e.team && e.team.id===hId) ? "h" : "a",
+                  name: (e.player && e.player.name) || "—",
+                  min: String((e.time && e.time.elapsed!=null ? e.time.elapsed : "") + (e.time && e.time.extra ? "+"+e.time.extra : "")),
+                  detail: e.detail || ""
+                }));
+              }
+              const venue=[f.fixture.venue && f.fixture.venue.name, f.fixture.venue && f.fixture.venue.city].filter(Boolean).join(" · ");
+              now.push({
+                id:f.fixture.id, lg:f.league.name, lgId:f.league.id, lgLogo:f.league.logo, country:f.league.country, round:f.league.round,
+                hT:f.teams.home.name, hLogo:f.teams.home.logo, hG:f.goals.home,
+                aT:f.teams.away.name, aLogo:f.teams.away.logo, aG:f.goals.away,
+                short:f.fixture.status.short, min:f.fixture.status.elapsed, venue, scorers
+              });
+            }
+            fs.mkdirSync("data",{recursive:true});
+            fs.writeFileSync("data/livenow.json", JSON.stringify({ updated:new Date().toISOString(), matches:now }));
+            console.log("wrote", wc.length, "WC +", now.length, "live");
+          })();
           JS
       - name: Commit
         run: |
           git config user.name "live-bot"; git config user.email "bot@users.noreply.github.com"
-          git add live.json && git commit -m "live update" || echo "no change"
+          git add live.json data/livenow.json && git commit -m "live update" || echo "no change"
           git push || true

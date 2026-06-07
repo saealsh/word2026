@@ -3,32 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>16 معبداً لكرة القدم · ملاعب مونديال 2026 🏟️</title>
-<meta name="description" content="من أزتيكا إلى ميت لايف — استكشف خريطة تفاعلية لملاعب كأس العالم 2026 الستة عشر عبر ثلاث دول، حيث تُكتب أساطير اللعبة.">
+<title>بحث · مونديال 2026 🔎</title>
+<meta name="description" content="ابحث في كأس العالم 2026: منتخبات، لاعبون، ومباريات — كل شيء في مكان واحد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://flagcdn.com" crossorigin>
 <meta name="theme-color" content="#000000">
 <script>try{if(localStorage.getItem("wc26_theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
-<!-- BRAND/SOCIAL META -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="canonical" href="https://word2026s.com/map.html">
+<link rel="canonical" href="https://word2026s.com/search.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="مونديال 2026">
 <meta property="og:locale" content="ar_AR">
-<meta property="og:title" content="16 معبداً لكرة القدم · ملاعب مونديال 2026 🏟️">
-<meta property="og:description" content="من أزتيكا إلى ميت لايف — استكشف خريطة تفاعلية لملاعب كأس العالم 2026 الستة عشر عبر ثلاث دول، حيث تُكتب أساطير اللعبة.">
-<meta property="og:url" content="https://word2026s.com/map.html">
+<meta property="og:title" content="بحث · مونديال 2026 🔎">
+<meta property="og:description" content="ابحث في كأس العالم 2026: منتخبات، لاعبون، ومباريات — كل شيء في مكان واحد.">
+<meta property="og:url" content="https://word2026s.com/search.html">
 <meta property="og:image" content="https://word2026s.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="16 معبداً لكرة القدم · ملاعب مونديال 2026 🏟️">
-<meta name="twitter:description" content="من أزتيكا إلى ميت لايف — استكشف خريطة تفاعلية لملاعب كأس العالم 2026 الستة عشر عبر ثلاث دول، حيث تُكتب أساطير اللعبة.">
-<meta name="twitter:image" content="https://word2026s.com/og-image.png">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -51,43 +44,32 @@
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head">
-      <div><h2>حيث تشتعل الجماهير</h2><p>16 مدينة عبر ثلاث دول · اضغط أي علامة لتكتشف الملعب وسعته الجبّارة</p></div>
-    </div>
-    <div id="map"></div>
-    <div class="grid grid-4" id="venueGrid" style="margin-top:24px"></div>
+    <div class="section-head"><div><h2>🔎 ابحث</h2><p>منتخب · لاعب · مباراة — كل شيء في مكان واحد</p></div></div>
+    <input type="search" id="q" class="search-big" placeholder="اكتب اسم منتخب أو لاعب أو مباراة…" autocomplete="off">
+    <div id="results"></div>
   </div>
 </section>
 
-<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · ملاعب تتسع للأحلام 🏟️</div></div></footer>
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية ⚽</div></div></footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- ===== وحدات المعمارية النظيفة (ترتيب التحميل = ترتيب الاعتماد) ===== -->
-<!-- core: النطاق -->
 <script src="core/data.js"></script>
 <script src="core/domain.js"></script>
 <script src="core/profiles.js"></script>
-<!-- infra: البنية التحتية -->
 <script src="infra/storage.js"></script>
 <script src="infra/time.js"></script>
 <script src="infra/exporters.js"></script>
 <script src="infra/live.js"></script>
-<!-- app: الحالة -->
 <script src="app/clock.js"></script>
 <script src="app/collections.js"></script>
 <script src="app/live-poll.js"></script>
 <script src="app/live-config.js"></script>
-<!-- ui: العرض -->
 <script src="ui/toast.js"></script>
 <script src="ui/reveal.js"></script>
 <script src="ui/countdown.js"></script>
 <script src="ui/match-card.js"></script>
 <script src="ui/chrome.js"></script>
-<!-- التركيب + التوافق -->
 <script src="boot.js"></script>
 <script src="compat.js"></script>
-<!-- page controller -->
-<script src="map.js"></script>
+<script src="search.js"></script>
 </body>
 </html>

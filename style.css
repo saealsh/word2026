@@ -590,3 +590,22 @@ ul { list-style: none; }
 :root[data-theme="light"] .standings tr:hover { background: rgba(0,0,0,.04); }
 :root[data-theme="light"] .ko-round h3 { background: linear-gradient(90deg, rgba(0,0,0,.07), transparent); }
 :root[data-theme="light"] .badge-live { background: #1a1a1a; }
+
+/* ===== صفحة البحث ===== */
+.search-big { width: 100%; font-family: var(--font); background: var(--card); border: 1px solid var(--border-gold); color: var(--text); padding: 16px 18px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; }
+.search-big:focus { outline: none; box-shadow: var(--glow-gold); }
+.sr-head { margin: 22px 0 10px; color: var(--gold); font-size: 1.05rem; }
+.sr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.sr-item { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-weight: 700; transition: .18s; }
+.sr-item:hover { border-color: var(--border-gold); background: var(--card-strong); transform: translateY(-2px); }
+.sr-item img { width: 30px; height: 22px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+.sr-item small { color: var(--text-faint); font-weight: 700; margin-inline-start: auto; font-size: .76rem; }
+.sr-pos { width: 34px; height: 34px; border-radius: 9px; background: var(--gold-pill-bg); border: 1px solid var(--gold-pill-border); color: var(--gold-soft); display: grid; place-items: center; font-weight: 900; font-size: .68rem; flex-shrink: 0; }
+
+/* ===== صفحة اللاعب ===== */
+.pl-hero { display: flex; align-items: center; gap: 18px; background: var(--card); border: 1px solid var(--border-gold); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); flex-wrap: wrap; }
+.pl-pos { width: 64px; height: 64px; border-radius: 16px; background: var(--gold-grad); color: var(--btn-gold-text); display: grid; place-items: center; font-weight: 900; font-size: .9rem; flex-shrink: 0; }
+.pl-hero h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; }
+.pl-meta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; color: var(--text-dim); font-weight: 700; margin-top: 6px; font-size: .9rem; }
+.pl-meta a { display: inline-flex; align-items: center; gap: 7px; }
+.pl-meta img { width: 26px; height: 19px; border-radius: 3px; object-fit: cover; }

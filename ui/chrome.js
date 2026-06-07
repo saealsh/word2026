@@ -40,6 +40,16 @@
       navInner.appendChild(btn);
     }
 
+    // زر البحث الشامل
+    if (navInner && !$(".nav-search")) {
+      const a = document.createElement("a");
+      a.className = "theme-toggle nav-search";
+      a.href = "search.html";
+      a.title = "بحث"; a.setAttribute("aria-label", "بحث");
+      a.textContent = "🔎";
+      navInner.appendChild(a);
+    }
+
     if (navInner && !$(".tz-select")) {
       const firstVisit = !(function () { try { return localStorage.getItem("wc26_tz"); } catch (e) { return null; } })();
       const sel = document.createElement("select");

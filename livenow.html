@@ -31,23 +31,58 @@
   @keyframes lnpulse { 0%{box-shadow:0 0 0 0 rgba(255,59,59,.6)} 70%{box-shadow:0 0 0 9px rgba(255,59,59,0)} 100%{box-shadow:0 0 0 0 rgba(255,59,59,0)} }
   .ln-updated { color:var(--text-faint); font-size:.76rem; font-weight:700; }
 
-  .ln-group { margin-top:22px; }
-  .ln-group-head { display:flex; align-items:center; gap:9px; margin-bottom:12px; font-weight:900; font-size:1rem; }
+  .ln-group { margin-top:26px; }
+  .ln-group-head { display:flex; align-items:center; gap:9px; margin-bottom:13px; font-weight:900; font-size:1rem; }
   .ln-group-head img { width:26px; height:26px; object-fit:contain; border-radius:5px; background:#fff; padding:2px; }
   .ln-group-head small { color:var(--text-faint); font-weight:700; font-size:.74rem; }
 
-  .ln-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-  .ln-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 16px; transition:.2s; }
-  .ln-card:hover { border-color:var(--border-gold); transform:translateY(-2px); }
-  .ln-row { display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; }
-  .ln-team { display:flex; align-items:center; gap:9px; font-weight:800; font-size:.96rem; min-width:0; }
-  .ln-team img { width:26px; height:26px; object-fit:contain; flex-shrink:0; }
-  .ln-team span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .ln-score { font-size:1.5rem; font-weight:900; min-width:30px; text-align:center; }
-  .ln-sep { height:1px; background:var(--border); margin:9px 0; }
-  .ln-min { display:inline-flex; align-items:center; gap:6px; margin-top:11px; font-size:.78rem; font-weight:800; color:#ff5a5a; }
-  .ln-min .d { width:7px; height:7px; border-radius:50%; background:#ff3b3b; animation:lnpulse 1.6s infinite; }
-  .ln-ht { color:var(--gold); }
+  .ln-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
+
+  /* ===== بطاقة فخمة بتفاصيل ===== */
+  .ln-card { position:relative; overflow:hidden; background:linear-gradient(180deg, var(--card-strong), var(--card)); border:1px solid var(--border-gold); border-radius:18px; padding:0; transition:.22s; box-shadow:var(--shadow); }
+  .ln-card:hover { transform:translateY(-3px); box-shadow:var(--glow-gold, 0 10px 30px rgba(0,0,0,.5)); }
+  .ln-card::before { content:""; position:absolute; inset:0 0 auto 0; height:3px; background:var(--grad-fire); }
+
+  .ln-head { display:flex; align-items:center; gap:8px; padding:11px 15px; border-bottom:1px solid var(--border); font-size:.78rem; }
+  .ln-head img { width:20px; height:20px; object-fit:contain; border-radius:4px; background:#fff; padding:1px; }
+  .ln-head .lg { font-weight:800; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ln-head .rnd { color:var(--text-faint); font-weight:700; margin-inline-start:auto; white-space:nowrap; }
+
+  .ln-status { position:absolute; top:13px; inset-inline-end:14px; display:inline-flex; align-items:center; gap:6px; background:rgba(255,59,59,.14); border:1px solid rgba(255,59,59,.4); color:#ff6a6a; font-weight:900; font-size:.72rem; padding:3px 10px; border-radius:999px; z-index:2; }
+  .ln-status .d { width:7px; height:7px; border-radius:50%; background:#ff3b3b; animation:lnpulse 1.6s infinite; }
+  .ln-status.ht { background:rgba(201,162,58,.16); border-color:rgba(201,162,58,.45); color:var(--gold); }
+
+  .ln-board { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px; padding:18px 15px 12px; }
+  .ln-side { display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; min-width:0; width:100%; }
+  .ln-side img { width:46px; height:46px; object-fit:contain; }
+  .ln-side .nm { font-weight:800; font-size:.92rem; line-height:1.25; max-width:100%; }
+  .ln-side .badge-pos { width:46px; height:46px; border-radius:12px; background:var(--card-strong); border:1px solid var(--border); display:grid; place-items:center; font-size:1.3rem; }
+  .ln-side.win .nm { color:var(--gold); }
+  .ln-side.win::after { content:"▲ متقدّم"; font-size:.62rem; font-weight:900; color:var(--gold); letter-spacing:.5px; }
+  .ln-side:not(.win)::after { content:""; font-size:.62rem; height:.9em; }
+
+  .ln-mid { text-align:center; min-width:72px; }
+  .ln-mid .sc { font-size:2.1rem; font-weight:900; line-height:1; letter-spacing:1px; }
+  .ln-mid .sc b { color:var(--gold); }
+  .ln-mid .min { display:block; margin-top:7px; font-size:.74rem; font-weight:800; color:#ff6a6a; }
+
+  /* شريط تقدّم المباراة */
+  .ln-prog { height:6px; background:rgba(255,255,255,.07); margin:4px 15px 0; border-radius:999px; position:relative; }
+  .ln-prog i { position:absolute; inset:0 auto 0 0; background:var(--grad-fire); border-radius:999px; transition:width .6s ease; }
+  .ln-prog .ht-mark { position:absolute; top:-3px; left:50%; width:2px; height:12px; background:var(--border-gold); opacity:.6; transform:translateX(-50%); }
+  .ln-prog-tx { display:flex; justify-content:space-between; padding:5px 15px 0; font-size:.62rem; color:var(--text-faint); font-weight:800; }
+
+  /* مسجّلو الأهداف */
+  .ln-scorers { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; padding:11px 15px; border-top:1px dashed var(--border); margin-top:8px; }
+  .ln-scorers .col { display:flex; flex-direction:column; gap:4px; }
+  .ln-scorers .col.away { text-align:start; }
+  .ln-scorers .sc-item { font-size:.76rem; font-weight:700; color:var(--text-dim); display:flex; gap:5px; align-items:center; }
+  .ln-scorers .col.away .sc-item { flex-direction:row-reverse; }
+  .ln-scorers .sc-item .m { color:var(--gold); font-weight:900; }
+  .ln-scorers .sc-item .pen { color:var(--text-faint); font-size:.66rem; }
+
+  /* تذييل: الملعب */
+  .ln-venue { padding:9px 15px; border-top:1px solid var(--border); font-size:.74rem; color:var(--text-faint); font-weight:700; display:flex; align-items:center; gap:6px; }
 
   .ln-empty { text-align:center; padding:48px 18px; color:var(--text-dim); }
   .ln-empty .ico { font-size:3rem; margin-bottom:12px; }

@@ -1,17 +1,31 @@
 {
   "updated": "2026-06-07T18:30:00.000Z",
   "matches": [
-    { "id": 900001, "lg": "مباراة دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "Friendly",
-      "hT": "السعودية", "hLogo": null, "hG": 3,
-      "aT": "إسبانيا", "aLogo": null, "aG": 1,
-      "short": "2H", "min": 89 },
-    { "id": 900002, "lg": "مباراة ودية دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "Friendly",
+    { "id": 900001, "lg": "مباراة ودية دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "ودية تحضيرية",
+      "hT": "السعودية", "hLogo": null, "hG": 2,
+      "aT": "المغرب", "aLogo": null, "aG": 1,
+      "short": "2H", "min": 67, "venue": "استاد الملك فهد · الرياض",
+      "scorers": [
+        { "side": "h", "name": "صالح الشهري", "min": "23", "detail": "Normal Goal" },
+        { "side": "h", "name": "فراس البريكان", "min": "58", "detail": "Penalty" },
+        { "side": "a", "name": "أشرف حكيمي", "min": "41", "detail": "Normal Goal" }
+      ] },
+    { "id": 900002, "lg": "مباراة ودية دولية", "lgId": 10, "lgLogo": null, "country": "World", "round": "ودية تحضيرية",
       "hT": "مصر", "hLogo": null, "hG": 2,
       "aT": "تونس", "aLogo": null, "aG": 2,
-      "short": "HT", "min": 45 },
+      "short": "HT", "min": 45, "venue": "استاد القاهرة الدولي · القاهرة",
+      "scorers": [
+        { "side": "h", "name": "محمد صلاح", "min": "12", "detail": "Normal Goal" },
+        { "side": "h", "name": "عمر مرموش", "min": "39", "detail": "Normal Goal" },
+        { "side": "a", "name": "يوسف المساكني", "min": "27", "detail": "Normal Goal" },
+        { "side": "a", "name": "حنبعل المجبري", "min": "44", "detail": "Normal Goal" }
+      ] },
     { "id": 900003, "lg": "دوري روشن السعودي", "lgId": 307, "lgLogo": null, "country": "Saudi-Arabia", "round": "ودية إعداد",
       "hT": "الهلال", "hLogo": null, "hG": 0,
       "aT": "النصر", "aLogo": null, "aG": 1,
-      "short": "1H", "min": 28 }
+      "short": "1H", "min": 28, "venue": "ملعب المملكة أرينا · الرياض",
+      "scorers": [
+        { "side": "a", "name": "كريستيانو رونالدو", "min": "19", "detail": "Normal Goal" }
+      ] }
   ]
 }

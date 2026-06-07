@@ -1,0 +1,59 @@
+# محدّث الدوريات — يكتب data/leagues/<id>.json (ترتيب + مباريات) لكل دوري في index.json.
+# التفعيل: انقل هذا الملف إلى المسار: .github/workflows/leagues-updater.yml
+#  يستخدم نفس السرّ API_KEY. يقرأ قائمة الدوريات والمواسم من data/leagues/index.json.
+# الميزانية: طلبان لكل دوري (ترتيب + مباريات نافذة زمنية). 10 دوريات = ~20 طلب/يوم.
+# يعمل مرة يومياً (الترتيب والجدول يتغيّران ببطء) — يمكنك تشغيله يدوياً وقت ما تشاء.
+name: leagues-updater
+on:
+  schedule: [{ cron: "0 5 * * *" }]   # يومياً 05:00 UTC (08:00 بتوقيت السعودية)
+  workflow_dispatch: {}
+permissions: { contents: write }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build league files
+        env: { API_KEY: "${{ secrets.API_KEY }}" }
+        run: |
+          node - <<'JS'
+          const fs=require("fs"), https=require("https");
+          if(!process.env.API_KEY){ console.log("no key — skip"); process.exit(0); }
+          const idx = JSON.parse(fs.readFileSync("data/leagues/index.json","utf8"));
+          function get(path){ return new Promise((res)=>{ const opt={host:"v3.football.api-sports.io",path,headers:{"x-apisports-key":process.env.API_KEY}};
+            https.get(opt,r=>{let b="";r.on("data",d=>b+=d);r.on("end",()=>{ try{res(JSON.parse(b));}catch(e){res({response:[]});} });}).on("error",()=>res({response:[]})); }); }
+          function ymd(d){ return d.toISOString().slice(0,10); }
+          (async()=>{
+            const today=new Date(); const from=new Date(today.getTime()-10*864e5), to=new Date(today.getTime()+21*864e5);
+            for(const L of idx.leagues){
+              // 1) الترتيب
+              const st = await get(`/standings?league=${L.id}&season=${L.season}`);
+              let standings=[];
+              try{
+                const table=((st.response||[])[0]||{}).league?.standings||[];
+                const rows=table[0]||[];
+                standings=rows.map(r=>({ rank:r.rank, team:r.team.name, logo:r.team.logo, played:r.all.played,
+                  win:r.all.win, draw:r.all.draw, lose:r.all.lose, gf:r.all.goals.for, ga:r.all.goals.against,
+                  gd:r.goalsDiff, points:r.points, form:r.form }));
+              }catch(e){}
+              // 2) المباريات (نافذة: -10 إلى +21 يوماً)
+              const fx = await get(`/fixtures?league=${L.id}&season=${L.season}&from=${ymd(from)}&to=${ymd(to)}`);
+              const fixtures=(fx.response||[]).map(f=>({
+                id:f.fixture.id, date:f.fixture.date, short:f.fixture.status.short, min:f.fixture.status.elapsed, round:f.league.round,
+                hT:f.teams.home.name, hLogo:f.teams.home.logo, hG:f.goals.home, hWin:f.teams.home.winner,
+                aT:f.teams.away.name, aLogo:f.teams.away.logo, aG:f.goals.away, aWin:f.teams.away.winner
+              })).sort((a,b)=> new Date(a.date)-new Date(b.date));
+              fs.writeFileSync(`data/leagues/${L.id}.json`, JSON.stringify({
+                updated:new Date().toISOString(),
+                league:{ id:L.id, ar:L.ar, en:L.en, flag:L.flag, country:L.country, season:L.season },
+                standings, fixtures
+              }));
+              console.log(L.en, "→", standings.length, "rows,", fixtures.length, "fixtures");
+            }
+          })();
+          JS
+      - name: Commit
+        run: |
+          git config user.name "leagues-bot"; git config user.email "bot@users.noreply.github.com"
+          git add data/leagues && git commit -m "leagues update" || echo "no change"
+          git push || true

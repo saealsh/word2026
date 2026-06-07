@@ -1,0 +1,15 @@
+{
+  "updated": "",
+  "leagues": [
+    { "id": 307, "ar": "دوري روشن السعودي",        "en": "Saudi Pro League",      "season": 2025, "flag": "🇸🇦", "country": "السعودية" },
+    { "id": 2,   "ar": "دوري أبطال أوروبا",          "en": "UEFA Champions League", "season": 2025, "flag": "🏆", "country": "أوروبا" },
+    { "id": 39,  "ar": "البريميرليغ الإنجليزي",      "en": "Premier League",        "season": 2025, "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "country": "إنجلترا" },
+    { "id": 17,  "ar": "دوري أبطال آسيا للنخبة",      "en": "AFC Champions League",  "season": 2025, "flag": "🌏", "country": "آسيا" },
+    { "id": 140, "ar": "الليغا الإسبانية",            "en": "La Liga",               "season": 2025, "flag": "🇪🇸", "country": "إسبانيا" },
+    { "id": 135, "ar": "الدوري الإيطالي",             "en": "Serie A",               "season": 2025, "flag": "🇮🇹", "country": "إيطاليا" },
+    { "id": 78,  "ar": "البوندسليغا الألماني",        "en": "Bundesliga",            "season": 2025, "flag": "🇩🇪", "country": "ألمانيا" },
+    { "id": 61,  "ar": "الدوري الفرنسي",              "en": "Ligue 1",               "season": 2025, "flag": "🇫🇷", "country": "فرنسا" },
+    { "id": 94,  "ar": "الدوري البرتغالي",            "en": "Primeira Liga",         "season": 2025, "flag": "🇵🇹", "country": "البرتغال" },
+    { "id": 71,  "ar": "الدوري البرازيلي",            "en": "Brasileirão Série A",   "season": 2026, "flag": "🇧🇷", "country": "البرازيل" }
+  ]
+}

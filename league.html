@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تفاصيل الدوري · مونديال 2026 🏆</title>
+<meta name="description" content="ترتيب الفرق، المباريات القادمة، والنتائج الأخيرة للدوري.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://media.api-sports.io" crossorigin>
+<meta name="theme-color" content="#000000">
+<script>try{if(localStorage.getItem("wc26_theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
+<script src="analytics.js"></script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="canonical" href="https://word2026s.com/league.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="مونديال 2026">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="تفاصيل الدوري · مونديال 2026 🏆">
+<meta property="og:image" content="https://word2026s.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .lh-hero { display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--border-gold); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); margin-bottom:18px; }
+  .lh-hero .f { font-size:2.6rem; line-height:1; }
+  .lh-hero b { font-size:1.3rem; display:block; }
+  .lh-hero small { color:var(--text-faint); font-weight:700; }
+
+  .lh-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .lh-tab { background:var(--card-strong); border:1px solid var(--border); border-radius:999px; padding:7px 16px; font-weight:800; font-size:.86rem; cursor:pointer; color:var(--text-dim); }
+  .lh-tab.active { background:var(--grad-fire); color:#000; border-color:transparent; }
+  .lh-pane { display:none; } .lh-pane.active { display:block; }
+
+  /* جدول الترتيب */
+  .tbl-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:14px; }
+  table.tbl { width:100%; border-collapse:collapse; min-width:560px; font-size:.86rem; }
+  table.tbl th, table.tbl td { padding:10px 8px; text-align:center; border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.tbl th { color:var(--text-faint); font-weight:800; font-size:.74rem; background:var(--card-strong); }
+  table.tbl td.team { text-align:start; }
+  table.tbl .tm { display:flex; align-items:center; gap:8px; font-weight:800; }
+  table.tbl .tm img { width:22px; height:22px; object-fit:contain; }
+  table.tbl .rk { font-weight:900; color:var(--text-faint); }
+  table.tbl .pts { font-weight:900; color:var(--gold); }
+  table.tbl tr, table.tbl tbody tr:hover td { background:rgba(255,255,255,.02); }
+  .form-b { display:inline-flex; gap:3px; }
+  .form-b i { width:7px; height:7px; border-radius:50%; display:inline-block; }
+  .fw{background:#2fcf6f} .fd{background:#c9a23a} .fl{background:#e0533d}
+
+  /* المباريات */
+  .fx { display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:11px 14px; margin-bottom:9px; }
+  .fx .dt { color:var(--text-faint); font-weight:800; font-size:.74rem; min-width:84px; }
+  .fx .pair { flex:1; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; }
+  .fx .t { display:flex; align-items:center; gap:7px; font-weight:800; font-size:.9rem; min-width:0; }
+  .fx .t.away { flex-direction:row-reverse; text-align:start; }
+  .fx .t img { width:22px; height:22px; object-fit:contain; flex-shrink:0; }
+  .fx .t span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .fx .sc { font-weight:900; font-size:1.05rem; min-width:54px; text-align:center; }
+  .fx .sc small { display:block; font-size:.66rem; color:var(--text-faint); font-weight:700; }
+  .fx .live { color:#ff5a5a; }
+  .fx-head { font-weight:900; margin:18px 0 12px; font-size:1.02rem; }
+
+  .lh-empty { text-align:center; padding:40px 18px; color:var(--text-dim); }
+  .lh-empty .ico { font-size:2.6rem; margin-bottom:10px; }
+  .lh-empty h3 { color:var(--text); margin-bottom:8px; }
+  .lh-empty p { max-width:460px; margin:0 auto; line-height:1.7; font-size:.9rem; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><img class="brand-logo" src="favicon.svg" alt="شعار مونديال 2026"> <span>مونديال <b>2026</b></span></a>
+    <button class="nav-toggle" aria-label="القائمة">☰</button>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="livenow.html">يلعب الآن</a>
+      <a href="leagues.html">الدوريات</a>
+      <a href="matches.html">المباريات</a>
+      <a href="groups.html">المجموعات</a>
+      <a href="knockout.html">الإقصائيات</a>
+      <a href="predictions.html">توقّعاتي</a>
+      <a href="map.html">الملاعب</a>
+      <a href="live.html">تحليلات</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <a href="leagues.html" class="muted" style="display:inline-block;margin-bottom:14px;font-weight:800;text-decoration:none">‹ كل الدوريات</a>
+    <div id="lhRoot"></div>
+  </div>
+</section>
+
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · الدوريات ⚽</div></div></footer>
+
+<script src="core/data.js"></script>
+<script src="core/domain.js"></script>
+<script src="core/profiles.js"></script>
+<script src="infra/storage.js"></script>
+<script src="infra/time.js"></script>
+<script src="infra/exporters.js"></script>
+<script src="infra/live.js"></script>
+<script src="app/clock.js"></script>
+<script src="app/collections.js"></script>
+<script src="app/live-poll.js"></script>
+<script src="app/live-config.js"></script>
+<script src="ui/toast.js"></script>
+<script src="ui/reveal.js"></script>
+<script src="ui/countdown.js"></script>
+<script src="ui/match-card.js"></script>
+<script src="ui/chrome.js"></script>
+<script src="boot.js"></script>
+<script src="compat.js"></script>
+<script src="league.js"></script>
+</body>
+</html>

@@ -3,27 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بحث · مونديال 2026 🔎</title>
-<meta name="description" content="ابحث في كأس العالم 2026: منتخبات، لاعبون، ومباريات — كل شيء في مكان واحد.">
+<title>الدوريات · مونديال 2026 🏆</title>
+<meta name="description" content="أبرز دوريات العالم — ترتيب الفرق، المباريات القادمة، والنتائج الأخيرة في مكان واحد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://flagcdn.com" crossorigin>
 <meta name="theme-color" content="#000000">
 <script>try{if(localStorage.getItem("wc26_theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
 <script src="analytics.js"></script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="canonical" href="https://word2026s.com/search.html">
+<link rel="canonical" href="https://word2026s.com/leagues.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="مونديال 2026">
 <meta property="og:locale" content="ar_AR">
-<meta property="og:title" content="بحث · مونديال 2026 🔎">
-<meta property="og:description" content="ابحث في كأس العالم 2026: منتخبات، لاعبون، ومباريات — كل شيء في مكان واحد.">
-<meta property="og:url" content="https://word2026s.com/search.html">
+<meta property="og:title" content="الدوريات · مونديال 2026 🏆">
+<meta property="og:description" content="أبرز دوريات العالم — ترتيب الفرق، المباريات القادمة، والنتائج الأخيرة.">
+<meta property="og:url" content="https://word2026s.com/leagues.html">
 <meta property="og:image" content="https://word2026s.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  .lg-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+  .lg-card { display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px 18px; text-decoration:none; color:inherit; transition:.2s; }
+  .lg-card:hover { border-color:var(--border-gold); background:var(--card-strong); transform:translateY(-2px); }
+  .lg-flag { font-size:2.2rem; line-height:1; flex-shrink:0; }
+  .lg-meta b { display:block; font-size:1.02rem; }
+  .lg-meta small { color:var(--text-faint); font-weight:700; font-size:.78rem; }
+  .lg-go { margin-inline-start:auto; color:var(--gold); font-weight:900; }
+</style>
 </head>
 <body>
 
@@ -40,20 +48,21 @@
       <a href="knockout.html">الإقصائيات</a>
       <a href="predictions.html">توقّعاتي</a>
       <a href="map.html">الملاعب</a>
-      <a href="live.html">تحليلات وجماهير</a>
+      <a href="live.html">تحليلات</a>
     </div>
   </div>
 </nav>
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><div><h2>🔎 ابحث</h2><p>منتخب · لاعب · مباراة — كل شيء في مكان واحد</p></div></div>
-    <input type="search" id="q" class="search-big" placeholder="اكتب اسم منتخب أو لاعب أو مباراة…" autocomplete="off">
-    <div id="results"></div>
+    <div class="section-head">
+      <div><h2>🏆 الدوريات</h2><p>اختر دوري لعرض الترتيب والمباريات القادمة والنتائج</p></div>
+    </div>
+    <div class="lg-grid" id="lgRoot"></div>
   </div>
 </section>
 
-<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية ⚽</div></div></footer>
+<footer class="footer"><div class="wrap"><div class="copy">© 2026 منصة مونديال الجماهيرية · الدوريات ⚽</div></div></footer>
 
 <script src="core/data.js"></script>
 <script src="core/domain.js"></script>
@@ -73,6 +82,6 @@
 <script src="ui/chrome.js"></script>
 <script src="boot.js"></script>
 <script src="compat.js"></script>
-<script src="search.js"></script>
+<script src="leagues.js"></script>
 </body>
 </html>
